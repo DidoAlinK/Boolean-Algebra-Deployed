@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: boolean-lab
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      # Render sits behind Cloudflare, which puts the real visitor address in this header.
+      # Without it every visitor would share one rate-limit bucket.
+      - key: BOOLEAN_LAB_CLIENT_IP_HEADER
+        value: cf-connecting-ip
